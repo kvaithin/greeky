@@ -1,10 +1,3 @@
-type Params = {
-  group?: string | null,
-  name?: string | null,
-  alias?: string | null,
-  gender?: string | null,
-};
-
 export const headers = {
   headers: {
     'Content-Type': 'application/json'
@@ -12,7 +5,8 @@ export const headers = {
 };
 
 export const FIND_NODES_QUERY = 'MATCH (gods) [WHERE] RETURN gods [LIMIT]';
-export const CREATE_QUERY = ({ name, alias, gender }: Params) =>
+export const SEARCH_QUERY = (s: string | null) => `MATCH (n) WHERE toLower(n.name) CONTAINS toLower('${s}') RETURN n;`;
+export const CREATE_QUERY = ({ name, alias, gender }: NodeParams) =>
   `CREATE (:GOD { name: '${name}', alias: '${alias}', gender: '${gender}' })`;
 export const UPDATE_QUERY = (name: string, propertiesToUpdate: NodeParams) => {
   let query = `MATCH (n:GOD {name: '${name}'})`;
@@ -42,7 +36,7 @@ export const SHORTEST_PATH_QUERY = (name1: string | null, name2: string | null) 
   RETURN nodes(path) as nodes
 `;
 
-export const nodeQueryBuilder = (params: Params, limit: string | null) => {
+export const nodeQueryBuilder = (params: NodeParams, limit: string | null) => {
   let { alias, gender, group, name} = params;
   const q = `MATCH (gods) [WHERE] RETURN gods [LIMIT]`;
 
@@ -69,6 +63,7 @@ export const nodeQueryBuilder = (params: Params, limit: string | null) => {
 
 export const extractParams = (request: Request) => {
   const { searchParams } = new URL(request.url);
+  const s = searchParams.get('s');
   const limit = searchParams.get('limit');
   const group = searchParams.get('group');
   const name = searchParams.get('name');
@@ -79,6 +74,7 @@ export const extractParams = (request: Request) => {
   const name1 = searchParams.get('name1');
   const name2 = searchParams.get('name2');
   return {
+    s,
     limit,
     group,
     name,

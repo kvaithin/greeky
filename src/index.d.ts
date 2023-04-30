@@ -1,5 +1,7 @@
 type NodeParams = {
+  name?: string | null,
   alias?: string | null,
+  group?: string | null,
   gender?: string | null,
   is_titan?: string | null,
   is_cyclops?: string | null,

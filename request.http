@@ -24,6 +24,11 @@ GET http://localhost:3000/api/greek/shortest_path?name1=Poseidon&name2=Nike HTTP
 Accept: application/json
 
 ###
+# Partial search for god names
+GET http://localhost:3000/api/greek/search?s=eu HTTP/1.1
+Accept: application/json
+
+###
 # create a new god
 POST http://localhost:3000/api/greek HTTP/1.1
 Content-Type: application/json

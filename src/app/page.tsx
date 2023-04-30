@@ -1,8 +1,10 @@
+import SearchBar from "@/components/SearchBar";
+
 export default function Home() {
   return (
     <main>
-      <div className="mb-3 text-2xl font-semibold text-red-500">
-        test text
+      <div className="container mx-auto px-4 mt-4 max-w-lg">
+        <SearchBar />
       </div>
     </main>
   )

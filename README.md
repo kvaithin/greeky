@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Family tree of the Greek Gods
 
-## Getting Started
+Based off the 8th century [Theogony poem](https://en.wikipedia.org/wiki/Theogony) by Hesiod.
 
-First, run the development server:
+![Theogony](src/misc/theogony.png)
+
+##### Initial setup for Neo4j
+
+Run `zsh restart.zsh` command for first time setup.
+
+You only need to run this script once. 
+
+Re-running will reset scripts and data each time. Thus only run it again if intentionally resetting. 
+
+If there are issues in running this script, watch for the error logs explaining resolutions.
+
+The above setup suffices for Neo4j setup. You can access the database via: [UI](http://localhost:7474/browser/)
+
+###### The following is to use the data in an UI plus write our own db queries. 
+
+##### Commands
+
+Run the following to install all dependencies first.
+Best to be on node version `18.16.0` and above. 
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+yarn
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then, start the development server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+yarn dev
+```
+Once server is started, can run and test the queries via the `request.http` file in this project.
 
-[http://localhost:3000/api/hello](http://localhost:3000/api/hello) is an endpoint that uses [Route Handlers](https://beta.nextjs.org/docs/routing/route-handlers). This endpoint can be edited in `app/api/hello/route.ts`.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Or go to [localhost:3000](http://localhost:3000) to view Greek God information on homepage.

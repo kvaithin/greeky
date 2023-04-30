@@ -1,0 +1,52 @@
+###
+# Get all node data
+GET http://localhost:3000/api/greek HTTP/1.1
+Accept: application/json
+
+###
+# Get specific node data based on query params Example 1
+GET http://localhost:3000/api/greek?group=is_the_charities&gender=Female&alias=Joy HTTP/1.1
+Accept: application/json
+
+###
+# Get specific node data based on query params with limit Example 2
+GET http://localhost:3000/api/greek?group=is_titan&limit=5 HTTP/1.1
+Accept: application/json
+
+###
+# Get immediate relation nodes for a particular node
+GET http://localhost:3000/api/greek/immediate_relation?name=Poseidon&relations=ancestor_of,descendant_of,procreated_with HTTP/1.1
+Accept: application/json
+
+###
+# Find shortest path between two nodes
+GET http://localhost:3000/api/greek/shortest_path?name1=Poseidon&name2=Nike HTTP/1.1
+Accept: application/json
+
+###
+# create a new god
+POST http://localhost:3000/api/greek HTTP/1.1
+Content-Type: application/json
+
+  {
+    "name": "god1",
+    "alias": "g",
+    "gender": "Male"
+  }
+
+###
+# Update god data by name
+PUT http://localhost:3000/api/greek HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "god1",
+  "alias": "g1",
+  "gender": "Female",
+  "is_cyclops": "true"
+}
+
+###
+# Delete character data by id
+DELETE http://localhost:3000/api/greek?name=god1 HTTP/1.1
+Accept: application/json

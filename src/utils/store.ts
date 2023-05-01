@@ -1,8 +1,9 @@
-import create from "zustand";
+import { create } from "zustand";
 import { combine } from 'zustand/middleware'
 
 const initialValues: StateType = {
   god: {},
+  showToast: true,
 }
 
 const useStore = create(
@@ -10,7 +11,8 @@ const useStore = create(
     { ...initialValues },
     (set) => ({
       addGod: (god: GodType) => set((state) => ({ god })),
-      removeGod: (name: string) => set((state) => ({ god: undefined, }))
+      removeGod: (name: string) => set((state) => ({ god: undefined, })),
+      toggleToast: (showToast: boolean) => set(() => ({ showToast }))
     })
   ),
 )

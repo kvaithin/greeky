@@ -1,5 +1,6 @@
 import SearchBar from "@/components/SearchBar";
 import GodContainer from "@/components/GodContainer";
+import Toast from "@/components/Toast";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <div className='max-w-lg m-4'>
         <GodContainer />
       </div>
+      <Toast message={'test toast'} />
     </main>
   )
 }

@@ -22,11 +22,13 @@ type NodeParams = {
 
 type StateType = {
   god: GodType,
+  showToast: boolean,
 }
 
 type ActionType = {
   addGod: (god: GodType) => void,
   removeGod: (id: string) => void,
+  toggleToast: (showToast: boolean) => void,
 }
 
 type GodType = {
@@ -34,3 +36,9 @@ type GodType = {
   alias?: string,
   gender?: string,
 }
+
+type ToastType = {
+  message: string,
+  bgColor?: string,
+  textColor?: string,
+};

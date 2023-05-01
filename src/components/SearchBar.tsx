@@ -2,10 +2,12 @@
 import {MagnifyingGlassIcon} from "@heroicons/react/20/solid";
 import React, { useEffect, useState } from "react";
 import useStore from "@/utils/store";
+import {upperFirst} from "@/utils/helpers";
 
 const SearchBar = () => {
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  const [hideSuggestion, setHideSuggestion] = useState(false);
   const addGod = useStore((state) => state.addGod);
 
   useEffect(() => {
@@ -21,11 +23,12 @@ const SearchBar = () => {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       getGodDetails();
+      setSuggestions([])
     }
   };
 
   const getGodDetails = () => {
-    fetch(`/api/greek?name=${inputValue}`)
+    fetch(`/api/greek?name=${upperFirst(inputValue)}`)
       .then(response => response.json())
       .then(data => addGod(data[0]));
   };
@@ -33,8 +36,12 @@ const SearchBar = () => {
   const showSuggestion = (data: any) => {
     const d = data?.length == 1 && data?.[0]?.toLowerCase();
     const shouldSuggest = !(d === inputValue?.toLowerCase());
-    if (shouldSuggest) setSuggestions(data);
-    else setSuggestions([]);
+    if (shouldSuggest && !hideSuggestion) setSuggestions(data);
+    else {
+      getGodDetails();
+      setSuggestions([]);
+      setHideSuggestion(false);
+    }
   };
 
   return (
@@ -52,9 +59,10 @@ const SearchBar = () => {
       </div>
       <ul className='mt-2 z-10 absolute'>
         {suggestions?.map(suggestion => (
-          <li key={suggestion} className='cursor-pointer text-gray-700'>
+          <li key={suggestion} className='ml-2 cursor-pointer text-gray-700 hover:bg-amber-200'>
             <div onClick={() => {
-              setInputValue(suggestion)
+              setHideSuggestion(true);
+              setInputValue(suggestion);
             }}>
               {suggestion}
             </div>

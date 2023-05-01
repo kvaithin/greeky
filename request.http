@@ -14,7 +14,12 @@ GET http://localhost:3000/api/greek?group=is_the_charities&gender=Female&alias=J
 Accept: application/json
 
 ###
-# Get specific node data based on query params with limit Example 2
+# Get specific node data based on query params Example 2
+GET http://localhost:3000/api/greek?group=is_the_charities&gender=Female&alias=Joy HTTP/1.1
+Accept: application/json
+
+###
+# Get specific node data based on query params with limit Example 3
 GET http://localhost:3000/api/greek?group=is_titan&limit=5 HTTP/1.1
 Accept: application/json
 

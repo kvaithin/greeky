@@ -4,6 +4,11 @@ GET http://localhost:3000/api/greek HTTP/1.1
 Accept: application/json
 
 ###
+# Get node data by name
+GET http://localhost:3000/api/greek?name=Medusa HTTP/1.1
+Accept: application/json
+
+###
 # Get specific node data based on query params Example 1
 GET http://localhost:3000/api/greek?group=is_the_charities&gender=Female&alias=Joy HTTP/1.1
 Accept: application/json

@@ -19,3 +19,18 @@ type NodeParams = {
   is_the_seasons?: string | null,
   is_the_pains?: string | null,
 };
+
+type StateType = {
+  god: GodType,
+}
+
+type ActionType = {
+  addGod: (god: GodType) => void,
+  removeGod: (id: string) => void,
+}
+
+type GodType = {
+  name?: string,
+  alias?: string,
+  gender?: string,
+}

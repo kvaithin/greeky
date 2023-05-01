@@ -1,11 +1,12 @@
 'use client'
 import {MagnifyingGlassIcon} from "@heroicons/react/20/solid";
 import React, { useEffect, useState } from "react";
+import useStore from "@/utils/store";
 
 const SearchBar = () => {
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const [gods, setGods] = useState([]);
+  const addGod = useStore((state) => state.addGod);
 
   useEffect(() => {
     if (inputValue.length > 0) {
@@ -19,11 +20,14 @@ const SearchBar = () => {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      fetch(`/api/greek?name=${inputValue}`)
-        .then(response => response.json())
-        .then(data => setGods(data));
+      getGodDetails();
     }
-    console.log(gods?.[0])
+  };
+
+  const getGodDetails = () => {
+    fetch(`/api/greek?name=${inputValue}`)
+      .then(response => response.json())
+      .then(data => addGod(data[0]));
   };
 
   const showSuggestion = (data: any) => {
@@ -49,7 +53,9 @@ const SearchBar = () => {
       <ul className='mt-2 z-10 absolute'>
         {suggestions?.map(suggestion => (
           <li key={suggestion} className='cursor-pointer text-gray-700'>
-            <div onClick={() => setInputValue(suggestion)}>
+            <div onClick={() => {
+              setInputValue(suggestion)
+            }}>
               {suggestion}
             </div>
           </li>

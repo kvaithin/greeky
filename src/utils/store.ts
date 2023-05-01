@@ -3,7 +3,7 @@ import { combine } from 'zustand/middleware'
 
 const initialValues: StateType = {
   god: {},
-  showToast: true,
+  showToast: false,
 }
 
 const useStore = create(

@@ -41,4 +41,5 @@ type ToastType = {
   message: string,
   bgColor?: string,
   textColor?: string,
+  waitTime?: number,
 };

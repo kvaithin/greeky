@@ -3,14 +3,14 @@
 import useStore from "@/utils/store";
 import {Fragment, useEffect} from "react";
 
-const Toast = ({ message, bgColor = 'red', textColor = 'white' }: ToastType) => {
+const Toast = ({ message, bgColor = 'red', textColor = 'white', waitTime = 1400 }: ToastType) => {
   const showToast = useStore((state) => state.showToast);
   const toggleToast = useStore((state) => state.toggleToast);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       toggleToast(false);
-    }, 1400);
+    }, waitTime);
     return () => clearTimeout(timeoutId);
   });
 

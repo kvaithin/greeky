@@ -1,10 +1,11 @@
 'use client'
 import {MagnifyingGlassIcon} from "@heroicons/react/20/solid";
-import {SetStateAction, useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 const SearchBar = () => {
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  const [gods, setGods] = useState([]);
 
   useEffect(() => {
     if (inputValue.length > 0) {
@@ -16,7 +17,16 @@ const SearchBar = () => {
     }
   }, [inputValue]);
 
-  const showSuggestion = (data: SetStateAction<never[]>) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      fetch(`/api/greek?name=${inputValue}`)
+        .then(response => response.json())
+        .then(data => setGods(data));
+    }
+    console.log(gods?.[0])
+  };
+
+  const showSuggestion = (data: any) => {
     const d = data?.length == 1 && data?.[0]?.toLowerCase();
     const shouldSuggest = !(d === inputValue?.toLowerCase());
     if (shouldSuggest) setSuggestions(data);
@@ -33,6 +43,7 @@ const SearchBar = () => {
           placeholder="Find Greek Gods..."
           value={inputValue}
           onChange={e => setInputValue(e.target.value)}
+          onKeyDown={(e) => handleKeyDown(e)}
         />
       </div>
       <ul className='mt-2 z-10 absolute'>

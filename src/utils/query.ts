@@ -22,6 +22,7 @@ export const UPDATE_QUERY = (name: string, propertiesToUpdate: NodeParams) => {
   return query;
 }
 export const DELETE_QUERY = (name: string | null) => `MATCH (g:GOD { name: '${name}' }) DELETE g`;
+export const VERBOSE_RELATION_QUERY = (name: string | null) => `MATCH (g:GOD { name: '${name}' }) DELETE g`;
 export const IMMEDIATE_RELATION_QUERY =
   (name: string | null, relations: string[] | undefined) => {
     const defaultQuery = `MATCH (n {name: '${name}'})-[]->(related_node) RETURN related_node`;

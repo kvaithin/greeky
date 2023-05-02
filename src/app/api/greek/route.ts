@@ -35,7 +35,6 @@ export const POST = async (request: Request) => {
 export const PUT = async (request: Request) => {
   const body = await request.json();
   const query = UPDATE_QUERY(body.name, body);
-  console.log(query);
   try {
     const result = await session.run(query);
     const propertiesSet = result?.summary?.counters.updates()?.propertiesSet;
@@ -48,7 +47,6 @@ export const PUT = async (request: Request) => {
 export const DELETE = async (request: Request) => {
   const { name } = extractParams(request);
   const query = DELETE_QUERY(name);
-  console.log(query);
   try {
     const result = await session.run(query);
     const nodesDeleted = result?.summary?.counters.updates()?.nodesDeleted;

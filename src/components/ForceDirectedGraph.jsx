@@ -6,12 +6,17 @@ function ForceDirectedGraph({ data }) {
 
   useEffect(() => {
     const svg = d3.select(svgRef.current);
+    svg
+      .attr('width', 600)
+      .attr('height', 600);
     const width = svg.node().getBoundingClientRect().width;
     const height = svg.node().getBoundingClientRect().height;
 
     const simulation = d3.forceSimulation(data.nodes)
-      .force('link', d3.forceLink(data.links).id(d => d.id))
-      .force('charge', d3.forceManyBody())
+      .force('link', d3.forceLink(data.links)
+        .id(d => d.id)
+        .distance(50))
+      .force('charge', d3.forceManyBody().strength(-400))
       .force('center', d3.forceCenter(width / 2, height / 2));
 
     const links = svg.append('g')
@@ -20,21 +25,43 @@ function ForceDirectedGraph({ data }) {
       .data(data.links)
       .enter()
       .append('line')
-      .attr('stroke', 'black')
+      .attr('stroke', 'gray')
+      .attr('stroke-width', d => Math.sqrt(d.value))
+      .on('mouseover', (event, d) => console.log(d.value));
 
-      .attr('stroke-width', d => Math.sqrt(d.value));
+    const getRandomColor = () => {
+      const min = 0;
+      const max = 150;
+      const r = Math.floor(Math.random() * (max - min) + min);
+      const g = Math.floor(Math.random() * (max - min) + min);
+      const b = Math.floor(Math.random() * (max - min) + min);
+      return `rgb(${r},${g},${b})`;
+    };
+
+
 
     const nodes = svg.append('g')
       .attr('class', 'nodes')
-      .selectAll('circle')
+      .selectAll('g')
       .data(data.nodes)
       .enter()
-      .append('circle')
-      .attr('r', 6)
+      .append('g')
+      .attr('fill', d => getRandomColor())
+      .on('click', (event, d) => {
+        console.log('Clicked node:', d.id);
+      });
+
+    const circles = nodes.append('circle')
+      .attr('r', 7)
       .call(d3.drag()
         .on('start', dragstarted)
         .on('drag', dragged)
         .on('end', dragended));
+
+    const labels = nodes.append('text')
+      .text(d => d.id)
+      .attr('dx', 12)
+      .attr('dy', -3);
 
     simulation.on('tick', () => {
       links
@@ -43,9 +70,13 @@ function ForceDirectedGraph({ data }) {
         .attr('x2', d => d.target.x)
         .attr('y2', d => d.target.y);
 
-      nodes
+      circles
         .attr('cx', d => d.x)
         .attr('cy', d => d.y);
+
+      labels
+        .attr('x', d => d.x)
+        .attr('y', d => d.y);
     });
 
     function dragstarted(event, d) {

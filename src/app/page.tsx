@@ -1,6 +1,7 @@
 import SearchBar from "@/components/SearchBar";
 import GodContainer from "@/components/GodContainer";
 import Toast from "@/components/Toast";
+import GraphHandler from "@/components/GraphHandler";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       </div>
       <div className='max-w-lg m-4'>
         <GodContainer />
+        <GraphHandler />
       </div>
       <Toast message={'test toast'} />
     </main>

@@ -1,30 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 
-function GForce() {
+function ForceDirectedGraph({ data }) {
   const svgRef = useRef();
 
   useEffect(() => {
-
-    const data = {
-      nodes: [
-        { id: 'A' },
-        { id: 'B' },
-        { id: 'C' },
-        { id: 'D' },
-        { id: 'E' },
-      ],
-      links: [
-        { source: 'A', target: 'B', value: 1 },
-        { source: 'A', target: 'C', value: 2 },
-        { source: 'B', target: 'C', value: 3 },
-        { source: 'B', target: 'D', value: 4 },
-        { source: 'C', target: 'D', value: 5 },
-        { source: 'D', target: 'E', value: 6 },
-      ],
-    };
-
-
     const svg = d3.select(svgRef.current);
     const width = svg.node().getBoundingClientRect().width;
     const height = svg.node().getBoundingClientRect().height;
@@ -40,6 +20,8 @@ function GForce() {
       .data(data.links)
       .enter()
       .append('line')
+      .attr('stroke', 'black')
+
       .attr('stroke-width', d => Math.sqrt(d.value));
 
     const nodes = svg.append('g')
@@ -48,7 +30,7 @@ function GForce() {
       .data(data.nodes)
       .enter()
       .append('circle')
-      .attr('r', 5)
+      .attr('r', 6)
       .call(d3.drag()
         .on('start', dragstarted)
         .on('drag', dragged)
@@ -82,9 +64,9 @@ function GForce() {
       d.fx = null;
       d.fy = null;
     }
-  }, []);
+  });
 
   return <svg ref={svgRef}></svg>;
 }
 
-export default GForce;
+export default ForceDirectedGraph;

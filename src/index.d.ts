@@ -1,8 +1,11 @@
-type NodeParams = {
+interface NodeParams extends GroupType {
   name?: string | null,
   alias?: string | null,
   group?: string | null,
   gender?: string | null,
+}
+
+interface GroupType {
   is_titan?: string | null,
   is_cyclops?: string | null,
   is_hundred_handers?: string | null,
@@ -18,7 +21,7 @@ type NodeParams = {
   is_the_charities?: string | null,
   is_the_seasons?: string | null,
   is_the_pains?: string | null,
-};
+}
 
 type StateType = {
   god: GodType,
@@ -33,7 +36,7 @@ type ActionType = {
   addGraphData: (graphData: object) => void,
 }
 
-type GodType = {
+interface GodType extends GroupType {
   name?: string,
   alias?: string,
   gender?: string,

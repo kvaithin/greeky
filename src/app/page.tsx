@@ -9,7 +9,7 @@ export default function Home() {
       <div className="container mx-auto px-4 mt-4 max-w-lg">
         <SearchBar />
       </div>
-      <div className='max-w-lg m-4'>
+      <div className='flex justify-around md:flex-row m-4 p-4 items-center max-w-7xl mx-auto'>
         <GodContainer />
         <GraphHandler />
       </div>

@@ -13,9 +13,11 @@ const SearchBar = () => {
 
   useEffect(() => {
     if (inputValue.length > 0) {
-      fetch(`/api/greek/search?s=${inputValue}`)
-        .then(response => response.json())
-        .then(data => showSuggestion(data));
+      (async () => {
+        const response = await fetch(`/api/greek/search?s=${inputValue}`);
+        const data = await response.json();
+        await showSuggestion(data);
+      })();
     } else {
       setSuggestions([]);
     }
@@ -23,7 +25,9 @@ const SearchBar = () => {
 
   const handleKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      await Promise.all([getGodDetails(), addGraphDetails()]);
+      // await Promise.all([getGodDetails(), addGraphDetails()]);
+      await getGodDetails();
+      await addGraphDetails();
       setSuggestions([])
     }
   };
@@ -53,7 +57,9 @@ const SearchBar = () => {
     const shouldSuggest = !(d === inputValue?.toLowerCase());
     if (shouldSuggest && !hideSuggestion) setSuggestions(data);
     else {
-      await Promise.all([getGodDetails(), addGraphDetails()]);
+      // await Promise.all([getGodDetails(), addGraphDetails()]);
+      await getGodDetails();
+      await addGraphDetails();
       setSuggestions([]);
       setHideSuggestion(false);
     }

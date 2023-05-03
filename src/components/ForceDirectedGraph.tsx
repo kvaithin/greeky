@@ -6,6 +6,7 @@ function ForceDirectedGraph({ data }) {
 
   useEffect(() => {
     const svg = d3.select(svgRef.current);
+    svg.selectAll("*").remove();
     svg
       .attr('width', 600)
       .attr('height', 600);
@@ -29,16 +30,13 @@ function ForceDirectedGraph({ data }) {
       .attr('stroke-width', d => Math.sqrt(d.value))
       .on('mouseover', (event, d) => console.log(d.value));
 
-    const getRandomColor = () => {
+    const getRandomColor = (max = 150) => {
       const min = 0;
-      const max = 150;
       const r = Math.floor(Math.random() * (max - min) + min);
       const g = Math.floor(Math.random() * (max - min) + min);
       const b = Math.floor(Math.random() * (max - min) + min);
       return `rgb(${r},${g},${b})`;
     };
-
-
 
     const nodes = svg.append('g')
       .attr('class', 'nodes')

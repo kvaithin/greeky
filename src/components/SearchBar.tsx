@@ -9,6 +9,7 @@ const SearchBar = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [hideSuggestion, setHideSuggestion] = useState(false);
   const addGod = useStore((state) => state.addGod);
+  const addGraphData = useStore((state) => state.addGraphData);
 
   useEffect(() => {
     if (inputValue.length > 0) {
@@ -20,25 +21,39 @@ const SearchBar = () => {
     }
   }, [inputValue]);
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      getGodDetails();
+      await Promise.all([getGodDetails(), addGraphDetails()]);
       setSuggestions([])
     }
   };
 
-  const getGodDetails = () => {
-    fetch(`/api/greek?name=${upperFirst(inputValue)}`)
-      .then(response => response.json())
-      .then(data => addGod(data[0]));
+  const getGodDetails = async () => {
+    try {
+      const response = await fetch(`/api/greek?name=${upperFirst(inputValue)}`);
+      const data = await response.json();
+      addGod(data[0]);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const showSuggestion = (data: any) => {
+  const addGraphDetails = async () => {
+    try {
+      const response = await fetch(`/api/greek/verbose_relation?name=${upperFirst(inputValue)}`);
+      const data = await response.json();
+      addGraphData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const showSuggestion = async (data: any) => {
     const d = data?.length == 1 && data?.[0]?.toLowerCase();
     const shouldSuggest = !(d === inputValue?.toLowerCase());
     if (shouldSuggest && !hideSuggestion) setSuggestions(data);
     else {
-      getGodDetails();
+      await Promise.all([getGodDetails(), addGraphDetails()]);
       setSuggestions([]);
       setHideSuggestion(false);
     }

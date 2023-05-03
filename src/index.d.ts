@@ -23,12 +23,14 @@ type NodeParams = {
 type StateType = {
   god: GodType,
   showToast: boolean,
+  graphData: object,
 }
 
 type ActionType = {
   addGod: (god: GodType) => void,
   removeGod: (id: string) => void,
   toggleToast: (showToast: boolean) => void,
+  addGraphData: (graphData: object) => void,
 }
 
 type GodType = {

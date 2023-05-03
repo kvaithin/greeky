@@ -1,41 +1,17 @@
 'use client'
 
 import ForceDirectedGraph from "@/components/ForceDirectedGraph";
+import useStore from "@/utils/store";
+import {Fragment} from "react";
 
 const GraphHandler = () => {
- const data = {
-  nodes: [
-   { id: 'Zeus' },
-   { id: 'Themis' },
-   { id: 'Mnemosyne' },
-   { id: 'Eurynome' },
-   { id: 'Metis' },
-   { id: 'Maia' },
-   { id: 'Leto' },
-  ],
-  // links: [
-  //  { source: 'Zeus', target: 'Themis', value: 'PROCREATED_WITH' },
-  //  { source: 'Zeus', target: 'Mnemosyne', value: 2 },
-  //  { source: 'Zeus', target: 'Eurynome', value: 3 },
-  //  { source: 'Zeus', target: 'Metis', value: 4 },
-  //  { source: 'Zeus', target: 'Maia', value: 5 },
-  //  { source: 'Zeus', target: 'Leto', value: 6 },
-  // ],
+ const graphData = useStore((state) => state.graphData);
 
-  links: [
-   { source: 'Zeus', target: 'Themis', },
-   { source: 'Zeus', target: 'Mnemosyne', },
-   { source: 'Zeus', target: 'Eurynome', },
-   { source: 'Zeus', target: 'Metis', },
-   { source: 'Zeus', target: 'Maia', },
-   { source: 'Zeus', target: 'Leto', },
-  ],
-
- };
+ if (Object.keys(graphData)?.length === 0) return <Fragment />
 
  return (
   <div>
-   <ForceDirectedGraph data={data} />
+   <ForceDirectedGraph data={graphData} />
   </div>
  );
 };

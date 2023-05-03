@@ -4,6 +4,7 @@ import { combine } from 'zustand/middleware'
 const initialValues: StateType = {
   god: {},
   showToast: false,
+  graphData: {},
 }
 
 const useStore = create(
@@ -11,6 +12,7 @@ const useStore = create(
     { ...initialValues },
     (set) => ({
       addGod: (god: GodType) => set((state) => ({ god })),
+      addGraphData: (graphData: object) => set((state) => ({ graphData })),
       removeGod: (name: string) => set((state) => ({ god: undefined, })),
       toggleToast: (showToast: boolean) => set(() => ({ showToast }))
     })

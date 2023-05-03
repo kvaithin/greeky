@@ -36,6 +36,6 @@ Once server is started, can run and test the queries via the `request.http` file
 
 Or go to [localhost:3000](http://localhost:3000) to view Greek God information on homepage.
 
-Example UI output for a Greek Gold Character
+Example UI output for a Greek God Character
 
 <img src="src/misc/sample.png" alt="Sample UI" width="600">

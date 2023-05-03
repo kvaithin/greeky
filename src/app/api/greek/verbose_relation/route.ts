@@ -4,17 +4,18 @@ import { extractParams, headers, nodeQueryBuilder } from "@/utils/query";
 export const GET = async (request: Request) => {
   try {
     const result = await session.run(`MATCH (n {name: 'Zeus'})-[r]->(related_node) RETURN n, r, related_node`);
-    const node = result?.records?.[0]?.get?.('n')?.properties;
-    const edges = result.records.map((record) => {
-      return {
-        edge: record?.get?.('r')?.type,
-        node: record?.get?.('related_node')?.properties,
-      };
+    const mainNode = { id: result?.records[0].get('n')?.properties?.name };
+    const otherNodes = result.records.map((record) => ({
+      id: record?.get?.('related_node')?.properties?.name,
+    }));
+
+    const links = otherNodes.map((n, i) => {
+      return { source: mainNode.id, target: n.id };
     });
 
     const body = JSON.stringify({
-      node,
-      edges,
+      nodes: [mainNode, ...otherNodes],
+      links,
     });
     return new Response(body, headers);
   } catch (error) {

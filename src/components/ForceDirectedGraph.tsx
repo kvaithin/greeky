@@ -1,7 +1,8 @@
+// @ts-nocheck
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 
-function ForceDirectedGraph({ data }) {
+function ForceDirectedGraph({ data }: any) {
   const svgRef = useRef();
 
   useEffect(() => {

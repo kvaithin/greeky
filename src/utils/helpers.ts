@@ -1,4 +1,4 @@
-export const upperFirst = (str: string) => {
+export const upperFirst = (str?: string) => {
   const words = str?.split(" ");
   const formattedWords: string[] = [];
   words?.forEach(item => {

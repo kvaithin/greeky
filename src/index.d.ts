@@ -25,15 +25,25 @@ interface GroupType {
 
 type StateType = {
   god: GodType,
+  adjacentGod: GodType,
   showToast: boolean,
   graphData: object,
+  shortestPathData: object,
+}
+
+type SearchType = {
+  isMainNode?: boolean,
+  isShortestPathNode?: boolean,
+  placeholder?: string,
 }
 
 type ActionType = {
   addGod: (god: GodType) => void,
+  addAdjacentGod: (god: GodType) => void,
   removeGod: (id: string) => void,
   toggleToast: (showToast: boolean) => void,
   addGraphData: (graphData: object) => void,
+  addShortestPathData: (shortestPathData: object) => void,
 }
 
 interface GodType extends GroupType {
@@ -48,3 +58,8 @@ type ToastType = {
   textColor?: string,
   waitTime?: number,
 };
+
+type GodContainerType = {
+  isGod?: boolean,
+  isAdjacentGod?: boolean,
+}

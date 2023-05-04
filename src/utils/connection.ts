@@ -3,6 +3,7 @@ import {
   NEO4J_USERNAME,
   NEO4J_PASSWORD,
   NEO4J_INSTANCE_ID,
+  NEO4J_INSTANCE_NAME,
 } from "@/utils/constants";
 
 // const url = 'bolt://localhost:7687';

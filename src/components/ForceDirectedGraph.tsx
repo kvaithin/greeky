@@ -9,7 +9,7 @@ function ForceDirectedGraph({ data }) {
     svg.selectAll("*").remove();
     svg
       .attr('width', 600)
-      .attr('height', 600);
+      .attr('height', 400);
     const width = svg.node().getBoundingClientRect().width;
     const height = svg.node().getBoundingClientRect().height;
 

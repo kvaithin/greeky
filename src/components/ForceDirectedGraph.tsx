@@ -27,7 +27,7 @@ function ForceDirectedGraph({ data }) {
       .enter()
       .append('line')
       .attr('stroke', 'gray')
-      .attr('stroke-width', d => Math.sqrt(d.value))
+      .attr('stroke-width', d => 2)
       .on('mouseover', (event, d) => console.log(d.value));
 
     const getRandomColor = (max = 150) => {

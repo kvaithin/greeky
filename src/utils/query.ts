@@ -37,6 +37,11 @@ export const SHORTEST_PATH_QUERY = (name1: string | null, name2: string | null) 
   RETURN nodes(path) as nodes
 `;
 
+export const VERBOSE_SHORTEST_PATH_QUERY = (name1: string | null, name2: string | null) =>
+  `MATCH (n1 { name: '${name1}' }), (n2 { name: '${name2}' })
+  MATCH path = shortestPath((n1)-[*]-(n2))
+  RETURN nodes(path) as nodes, relationships(path) as relationships`;
+
 export const nodeQueryBuilder = (params: NodeParams, limit: string | null) => {
   let { alias, gender, group, name} = params;
   const q = `MATCH (gods) [WHERE] RETURN gods [LIMIT]`;

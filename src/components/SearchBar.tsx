@@ -31,8 +31,8 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
       // await Promise.all([getGodDetails(), addGraphDetails()]);
       isMainNode && await getGodDetails();
       isMainNode && await addGraphDetails();
-      isShortestPathNode && await addShortestPathDetails();
       isShortestPathNode && await getAdjacentGodDetails();
+      isShortestPathNode && await addShortestPathDetails();
       setSuggestions([])
     }
   };
@@ -69,9 +69,8 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
 
   const addShortestPathDetails = async () => {
     try {
-      const response = await fetch(`/api/greek/verbose_shortest_path?name1=${upperFirst(inputValue)}&name2=${upperFirst(god?.name)}`);
+      const response = await fetch(`/api/greek/verbose_shortest_path?name1=${upperFirst(god?.name)}&name2=${upperFirst(inputValue)}`);
       const data = await response.json();
-      console.log(`/api/greek/verbose_shortest_path?name1=${upperFirst(inputValue)}&name2=${upperFirst(god?.name)}`)
       addShortestPathData(data);
     } catch (error) {
       console.error(error);
@@ -86,8 +85,8 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
       // await Promise.all([getGodDetails(), addGraphDetails()]);
       isMainNode && await getGodDetails();
       isMainNode && await addGraphDetails();
-      isShortestPathNode && await addShortestPathDetails();
       isShortestPathNode && await getAdjacentGodDetails();
+      isShortestPathNode && await addShortestPathDetails();
       setSuggestions([]);
       setHideSuggestion(false);
     }

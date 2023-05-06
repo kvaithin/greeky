@@ -45,7 +45,7 @@ export const VERBOSE_SHORTEST_PATH_QUERY = (name1: string | null, name2: string 
   }).join('|');
 
   return `MATCH (n1 { name: '${name1}' }), (n2 { name: '${name2}' })
-  MATCH path = shortestPath((n1)-[${r}*]-(n2))
+  MATCH path = shortestPath((n1)-[${r}*]->(n2))
   RETURN nodes(path) as nodes, relationships(path) as relationships`;
 };
 

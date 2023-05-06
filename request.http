@@ -15,7 +15,12 @@ Accept: application/json
 
 ###
 # Find verbose shortest path between two nodes
-GET http://localhost:3000/api/greek/verbose_shortest_path?name1=Zeus&name2=Poseidon HTTP/1.1
+GET http://localhost:3000/api/greek/verbose_shortest_path?name1=Zeus&name2=Poseidon&relations=ancestor_of,descendant_of,procreated_with HTTP/1.1
+Accept: application/json
+
+###
+# Get all relations
+GET http://localhost:3000/api/greek/all_relations HTTP/1.1
 Accept: application/json
 
 ###

@@ -5,6 +5,7 @@ export const headers = {
 };
 
 export const FIND_NODES_QUERY = 'MATCH (gods) [WHERE] RETURN gods [LIMIT]';
+export const GET_ALL_RELATIONS_TYPES_QUERY = 'MATCH ()-[r]->() RETURN COLLECT(DISTINCT type(r)) AS relations';
 export const SEARCH_QUERY = (s: string | null) => `MATCH (n) WHERE toLower(n.name) CONTAINS toLower('${s}') RETURN n;`;
 export const CREATE_QUERY = ({ name, alias, gender }: NodeParams) =>
   `CREATE (:GOD { name: '${name}', alias: '${alias}', gender: '${gender}' })`;
@@ -22,7 +23,6 @@ export const UPDATE_QUERY = (name: string, propertiesToUpdate: NodeParams) => {
   return query;
 }
 export const DELETE_QUERY = (name: string | null) => `MATCH (g:GOD { name: '${name}' }) DELETE g`;
-export const VERBOSE_RELATION_QUERY = (name: string | null) => `MATCH (g:GOD { name: '${name}' }) DELETE g`;
 export const IMMEDIATE_RELATION_QUERY =
   (name: string | null, relations: string[] | undefined) => {
     const defaultQuery = `MATCH (n {name: '${name}'})-[]->(related_node) RETURN related_node`;
@@ -37,10 +37,17 @@ export const SHORTEST_PATH_QUERY = (name1: string | null, name2: string | null) 
   RETURN nodes(path) as nodes
 `;
 
-export const VERBOSE_SHORTEST_PATH_QUERY = (name1: string | null, name2: string | null) =>
-  `MATCH (n1 { name: '${name1}' }), (n2 { name: '${name2}' })
-  MATCH path = shortestPath((n1)-[*]-(n2))
+export const VERBOSE_SHORTEST_PATH_QUERY = (name1: string | null, name2: string | null, relations: string[] | undefined) => {
+  const r = relations?.map((relation, i) => {
+    let rel = getRelation(relation);
+    if (i != 0) rel = rel?.substring(1);
+    return rel;
+  }).join('|');
+
+  return `MATCH (n1 { name: '${name1}' }), (n2 { name: '${name2}' })
+  MATCH path = shortestPath((n1)-[${r}*]-(n2))
   RETURN nodes(path) as nodes, relationships(path) as relationships`;
+};
 
 export const nodeQueryBuilder = (params: NodeParams, limit: string | null) => {
   let { alias, gender, group, name} = params;

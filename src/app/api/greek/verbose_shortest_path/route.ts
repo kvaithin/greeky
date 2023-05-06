@@ -2,8 +2,8 @@ import session from "@/utils/connection";
 import {extractParams, headers, VERBOSE_SHORTEST_PATH_QUERY} from "@/utils/query";
 
 export const GET = async (request: Request) => {
-  const { name1, name2 } = extractParams(request);
-  const query = VERBOSE_SHORTEST_PATH_QUERY(name1, name2);
+  const { name1, name2, relations } = extractParams(request);
+  const query = VERBOSE_SHORTEST_PATH_QUERY(name1, name2, relations);
 
   try {
     const result = await session.run(query);

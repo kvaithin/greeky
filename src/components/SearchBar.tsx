@@ -10,6 +10,7 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
   const [hideSuggestion, setHideSuggestion] = useState(false);
   const god = useStore((state) => state.god);
   const addGod = useStore((state) => state.addGod);
+  const relation = useStore((state) => state.relation);
   const addAdjacentGod = useStore((state) => state.addAdjacentGod);
   const addGraphData = useStore((state) => state.addGraphData);
   const addShortestPathData = useStore((state) => state.addShortestPathData);
@@ -69,7 +70,7 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
 
   const addShortestPathDetails = async () => {
     try {
-      const response = await fetch(`/api/greek/verbose_shortest_path?name1=${upperFirst(god?.name)}&name2=${upperFirst(inputValue)}`);
+      const response = await fetch(`/api/greek/verbose_shortest_path?name1=${upperFirst(god?.name)}&name2=${upperFirst(inputValue)}&relations=${relation}`);
       const data = await response.json();
       addShortestPathData(data);
     } catch (error) {

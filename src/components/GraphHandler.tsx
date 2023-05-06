@@ -19,11 +19,11 @@ const GraphHandler = () => {
  return (
   <div className='flex flex-wrap'>
     <div>
-      <h1 className='text-center text-xl'>Immediate Relations</h1>
       {
         adjacentGod?.name
         && !shortestPathDataExists
           && <h1 className='text-red-500 text-center text-xl'>No Path Found Between Above Gods</h1>}
+      <h1 className='text-center text-xl'>Immediate Relations</h1>
       <ForceDirectedGraph data={graphData} />
     </div>
     <div>

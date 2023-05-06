@@ -29,6 +29,7 @@ type StateType = {
   showToast: boolean,
   graphData: object,
   shortestPathData: object,
+  relation: string,
 }
 
 type SearchType = {
@@ -44,6 +45,7 @@ type ActionType = {
   toggleToast: (showToast: boolean) => void,
   addGraphData: (graphData: object) => void,
   addShortestPathData: (shortestPathData: object) => void,
+  addRelation: (relation: string) => void,
 }
 
 interface GodType extends GroupType {

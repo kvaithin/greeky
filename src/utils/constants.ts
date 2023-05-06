@@ -3,6 +3,7 @@ const {
   NEO4J_PASSWORD = '',
   NEO4J_INSTANCE_ID = '',
   NEO4J_INSTANCE_NAME = '',
+  ENV,
 } = process.env;
 
 export {
@@ -10,4 +11,5 @@ export {
   NEO4J_PASSWORD,
   NEO4J_INSTANCE_ID,
   NEO4J_INSTANCE_NAME,
+  ENV,
 }

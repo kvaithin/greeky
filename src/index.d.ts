@@ -63,3 +63,8 @@ type GodContainerType = {
   isGod?: boolean,
   isAdjacentGod?: boolean,
 }
+
+type ShortestPathType = {
+  nodes?: [],
+  links?: [],
+}

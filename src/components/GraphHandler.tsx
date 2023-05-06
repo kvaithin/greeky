@@ -6,15 +6,24 @@ import {Fragment} from "react";
 
 const GraphHandler = () => {
   const graphData = useStore((state) => state.graphData);
-  const shortestPathData = useStore((state) => state.shortestPathData);
+  const shortestPathData: ShortestPathType = useStore((state) => state.shortestPathData);
+  const adjacentGod = useStore((state) => state.adjacentGod);
 
   if (Object.keys(graphData)?.length === 0) return <Fragment />
-  const shortestPathDataExists = Object.keys(shortestPathData)?.length !== 0;
+
+  const shortestPathDataExists =
+    Object.keys(shortestPathData)?.length !== 0
+      && shortestPathData?.nodes?.length !== 0
+      && shortestPathData?.links?.length !== 0;
 
  return (
   <div className='flex flex-wrap'>
     <div>
       <h1 className='text-center text-xl'>Immediate Relations</h1>
+      {
+        adjacentGod?.name
+        && !shortestPathDataExists
+          && <h1 className='text-red-500 text-center text-xl'>No Path Found Between Above Gods</h1>}
       <ForceDirectedGraph data={graphData} />
     </div>
     <div>

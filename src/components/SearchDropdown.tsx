@@ -7,17 +7,28 @@ import {upperFirst} from "@/utils/helpers";
 const SearchDropDown = () => {
   const allRelations = 'All Relations';
   const [relationNames, setRelationNames] = useState([allRelations]);
+  const god = useStore((state) => state.god);
+  const adjacentGod = useStore((state) => state.adjacentGod);
   const addRelation = useStore((state) => state.addRelation);
+  const addShortestPathData = useStore((state) => state.addShortestPathData);
   const relation = useStore((state) => state.relation);
 
-  const onChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const onChange = async (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
-    addRelation(value?.toLowerCase())
-    // const index = relationNames.indexOf(value);
-    // if (index > -1) {
-    //   relationNames.splice(index, 1);
-    // }
+    const rel = value?.toLowerCase();
+    addRelation(rel)
+    await addShortestPathDetails(rel);
   }
+
+  const addShortestPathDetails = async (rel: string | undefined) => {
+    try {
+      const response = await fetch(`/api/greek/verbose_shortest_path?name1=${god.name}&name2=${adjacentGod.name}&relations=${rel}`);
+      const data = await response.json();
+      addShortestPathData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     if (!relation) addRelation(allRelations);

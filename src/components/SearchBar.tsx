@@ -9,6 +9,7 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
   const [suggestions, setSuggestions] = useState([]);
   const [hideSuggestion, setHideSuggestion] = useState(false);
   const god = useStore((state) => state.god);
+  const adjacentGod = useStore((state) => state.adjacentGod);
   const addGod = useStore((state) => state.addGod);
   const relation = useStore((state) => state.relation);
   const addAdjacentGod = useStore((state) => state.addAdjacentGod);
@@ -33,7 +34,7 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
       isMainNode && await getGodDetails();
       isMainNode && await addGraphDetails();
       isShortestPathNode && await getAdjacentGodDetails();
-      isShortestPathNode && await addShortestPathDetails();
+      isShortestPathNode && await addShortestPathDetails(upperFirst(god?.name), upperFirst(inputValue));
       setSuggestions([])
     }
   };
@@ -63,14 +64,15 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
       const response = await fetch(`/api/greek/verbose_relation?name=${upperFirst(inputValue)}`);
       const data = await response.json();
       addGraphData(data);
+      await addShortestPathDetails(upperFirst(inputValue), upperFirst(adjacentGod?.name));
     } catch (error) {
       console.error(error);
     }
   };
 
-  const addShortestPathDetails = async () => {
+  const addShortestPathDetails = async (name1: string, name2: string) => {
     try {
-      const response = await fetch(`/api/greek/verbose_shortest_path?name1=${upperFirst(god?.name)}&name2=${upperFirst(inputValue)}&relations=${relation}`);
+      const response = await fetch(`/api/greek/verbose_shortest_path?name1=${name1}&name2=${name2}&relations=${relation}`);
       const data = await response.json();
       addShortestPathData(data);
     } catch (error) {
@@ -87,7 +89,7 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
       isMainNode && await getGodDetails();
       isMainNode && await addGraphDetails();
       isShortestPathNode && await getAdjacentGodDetails();
-      isShortestPathNode && await addShortestPathDetails();
+      isShortestPathNode && await addShortestPathDetails(upperFirst(god?.name), upperFirst(inputValue));
       setSuggestions([]);
       setHideSuggestion(false);
     }

@@ -31,6 +31,11 @@ export const IMMEDIATE_RELATION_QUERY =
       .join(' UNION ');
     return query || defaultQuery;
   };
+
+export const VERBOSE_IMMEDIATE_RELATION_QUERY = (name: string | null) => {
+  return `MATCH (n {name: '${name}'})-[r]->(related_node) RETURN n, r, related_node`
+};
+
 export const SHORTEST_PATH_QUERY = (name1: string | null, name2: string | null) => `
   MATCH (n1 { name: '${name1}' }), (n2 { name: '${name2}' })
   MATCH path = shortestPath((n1)-[*]-(n2))
@@ -86,6 +91,7 @@ export const extractParams = (request: Request) => {
   const relations = relation?.split(',');
   const name1 = searchParams.get('name1');
   const name2 = searchParams.get('name2');
+  const depth = searchParams.get('depth');
   return {
     s,
     limit,
@@ -96,6 +102,7 @@ export const extractParams = (request: Request) => {
     relations,
     name1,
     name2,
+    depth,
   };
 };
 

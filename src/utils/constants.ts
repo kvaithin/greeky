@@ -4,6 +4,7 @@ const {
   NEO4J_INSTANCE_ID = '',
   NEO4J_INSTANCE_NAME = '',
   ENV,
+  GA_TRACKING_ID,
 } = process.env;
 
 export {
@@ -12,4 +13,5 @@ export {
   NEO4J_INSTANCE_ID,
   NEO4J_INSTANCE_NAME,
   ENV,
+  GA_TRACKING_ID,
 }

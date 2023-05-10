@@ -1,25 +1,22 @@
 'use client'
-import ForceDirectedGraph from "@/components/ForceDirectedGraph";
+import HeroChart from "@/components/HeroChart";
 
 const Hero = async () => {
 
-  const getGreekData = async (limit: Number = 100) => {
+  const getGreekData = async (limit: Number = 60) => {
     try {
       const response = await fetch(`/api/greek?limit=${limit}`);
-      const data = await response.json();
-      const nodes = data.map(({ name }) => ({ id: name }));
-      return { nodes, links: [] };
+      return await response.json();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const data = await getGreekData();
-  console.log(data)
+  const names = await getGreekData();
 
  return (
-   <div className='absolute flex mx-auto p-4 left-0 right-0 w-1/12'>
-    <ForceDirectedGraph data={data} />
+   <div className='absolute left-1/2 transform -translate-x-1/2 mt-24 -z-50'>
+    <HeroChart names={names} />
   </div>
  );
 };

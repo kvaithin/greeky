@@ -1,21 +1,23 @@
 import SearchBar from "@/components/SearchBar";
-import GodContainer from "@/components/GodContainer";
 import Toast from "@/components/Toast";
 import GraphHandler from "@/components/GraphHandler";
 import SearchDropDown from "@/components/SearchDropdown";
-import Hero from "@/components/Hero";
+import CharacterCard from "@/components/CharacterCard";
 
 export default function Home() {
   return (
     <main>
-      {/*<Hero />*/}
       <div className="mt-6 mx-auto px-4 max-w-lg flex gap-2">
         <SearchBar isMainNode={true} placeholder='Find Greek Gods...' />
         <SearchBar isShortestPathNode={true} placeholder='Shortest Path...' />
       </div>
-      <div className='flex gap-40 justify-center mt-6'>
-        <GodContainer isGod={true} />
-        <GodContainer isAdjacentGod={true} />
+      <div className="flex justify-center items-stretch">
+        <div className="flex-grow">
+          <CharacterCard isGod={true}/>
+        </div>
+        <div className="flex-grow">
+          <CharacterCard isGod={false}/>
+        </div>
       </div>
       <div className='flex justify-around flex-col items-center max-w-7xl mx-auto'>
         <SearchDropDown />

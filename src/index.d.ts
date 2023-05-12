@@ -52,6 +52,21 @@ interface GodType extends GroupType {
   name?: string,
   alias?: string,
   gender?: string,
+  is_the_gorgons?: string,
+  is_titan?: string,
+  is_cyclops?: string,
+  is_hundred_handers?: string,
+  is_sisters_of_fate?: string,
+  is_harpy_sisters?: string,
+  is_the_old_women?: string,
+  is_nereid?: string,
+  is_okenid?: string,
+  is_pleiad?: string,
+  is_anemoi?: string,
+  is_muse?: string,
+  is_the_charities?: string,
+  is_the_seasons?: string,
+  is_the_pains?: string,
 }
 
 type ToastType = {

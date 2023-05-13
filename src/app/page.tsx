@@ -8,17 +8,17 @@ export default function Home() {
   return (
     <main>
       <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 p-4">
-        <SearchBar isMainNode={true} placeholder='Find Greek Gods...' />
-        <SearchBar isShortestPathNode={true} placeholder='Shortest Path...' />
+        <SearchBar isMainNode={true} placeholder="Find Greek Gods..." />
+        <SearchBar isShortestPathNode={true} placeholder="Shortest Path..." />
         <CharacterCard isGod={true} />
         <CharacterCard isAdjacentGod={true} />
       </div>
 
-      <div className='flex justify-around flex-col items-center max-w-7xl mx-auto'>
+      <div className="flex justify-around flex-col items-center max-w-7xl mx-auto">
         <SearchDropDown />
         <GraphHandler />
       </div>
-      <Toast message={'test toast'} />
+      <Toast message={"test toast"} />
     </main>
-  )
+  );
 }

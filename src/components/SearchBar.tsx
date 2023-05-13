@@ -1,11 +1,15 @@
-'use client'
-import {MagnifyingGlassIcon} from "@heroicons/react/20/solid";
+"use client";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import React, { useEffect, useState } from "react";
 import useStore from "@/utils/store";
-import {upperFirst} from "@/utils/helpers";
+import { upperFirst } from "@/utils/helpers";
 
-const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) => {
-  const [inputValue, setInputValue] = useState('');
+const SearchBar = ({
+  isMainNode,
+  isShortestPathNode,
+  placeholder,
+}: SearchType) => {
+  const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [hideSuggestion, setHideSuggestion] = useState(false);
   const god = useStore((state) => state.god);
@@ -28,14 +32,20 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
     }
   }, [inputValue]);
 
-  const handleKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
+  const handleKeyDown = async (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === "Enter") {
       // await Promise.all([getGodDetails(), addGraphDetails()]);
-      isMainNode && await getGodDetails();
-      isMainNode && await addGraphDetails();
-      isShortestPathNode && await getAdjacentGodDetails();
-      isShortestPathNode && await addShortestPathDetails(upperFirst(god?.name), upperFirst(inputValue));
-      setSuggestions([])
+      isMainNode && (await getGodDetails());
+      isMainNode && (await addGraphDetails());
+      isShortestPathNode && (await getAdjacentGodDetails());
+      isShortestPathNode &&
+        (await addShortestPathDetails(
+          upperFirst(god?.name),
+          upperFirst(inputValue)
+        ));
+      setSuggestions([]);
     }
   };
 
@@ -61,10 +71,15 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
 
   const addGraphDetails = async () => {
     try {
-      const response = await fetch(`/api/greek/verbose_relation?name=${upperFirst(inputValue)}`);
+      const response = await fetch(
+        `/api/greek/verbose_relation?name=${upperFirst(inputValue)}`
+      );
       const data = await response.json();
       addGraphData(data);
-      await addShortestPathDetails(upperFirst(inputValue), upperFirst(adjacentGod?.name));
+      await addShortestPathDetails(
+        upperFirst(inputValue),
+        upperFirst(adjacentGod?.name)
+      );
     } catch (error) {
       console.error(error);
     }
@@ -72,7 +87,9 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
 
   const addShortestPathDetails = async (name1: string, name2: string) => {
     try {
-      const response = await fetch(`/api/greek/verbose_shortest_path?name1=${name1}&name2=${name2}&relations=${relation}`);
+      const response = await fetch(
+        `/api/greek/verbose_shortest_path?name1=${name1}&name2=${name2}&relations=${relation}`
+      );
       const data = await response.json();
       addShortestPathData(data);
     } catch (error) {
@@ -86,10 +103,14 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
     if (shouldSuggest && !hideSuggestion) setSuggestions(data);
     else {
       // await Promise.all([getGodDetails(), addGraphDetails()]);
-      isMainNode && await getGodDetails();
-      isMainNode && await addGraphDetails();
-      isShortestPathNode && await getAdjacentGodDetails();
-      isShortestPathNode && await addShortestPathDetails(upperFirst(god?.name), upperFirst(inputValue));
+      isMainNode && (await getGodDetails());
+      isMainNode && (await addGraphDetails());
+      isShortestPathNode && (await getAdjacentGodDetails());
+      isShortestPathNode &&
+        (await addShortestPathDetails(
+          upperFirst(god?.name),
+          upperFirst(inputValue)
+        ));
       setSuggestions([]);
       setHideSuggestion(false);
     }
@@ -104,19 +125,24 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
           type="text"
           placeholder={placeholder}
           value={inputValue}
-          onChange={e => setInputValue(e.target.value)}
+          onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={(e) => handleKeyDown(e)}
         />
       </div>
-      <ul className='mt-2 z-50 absolute'>
+      <ul className="mt-2 z-50 absolute">
         {suggestions?.map((suggestion, index) => (
-          <li key={suggestion}
-              className={`ml-2 cursor-pointer text-gray-700 hover:bg-amber-200 p-1 pl-2 pr-2 ${index % 2 === 0 ? 'bg-gray-50': 'bg-indigo-50'}`}
+          <li
+            key={suggestion}
+            className={`ml-2 cursor-pointer text-gray-700 hover:bg-amber-200 p-1 pl-2 pr-2 ${
+              index % 2 === 0 ? "bg-gray-50" : "bg-indigo-50"
+            }`}
           >
-            <div onClick={() => {
-              setHideSuggestion(true);
-              setInputValue(suggestion);
-            }}>
+            <div
+              onClick={() => {
+                setHideSuggestion(true);
+                setInputValue(suggestion);
+              }}
+            >
               {suggestion}
             </div>
           </li>

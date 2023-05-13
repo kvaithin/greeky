@@ -1,8 +1,8 @@
 const {
-  NEO4J_USERNAME = '',
-  NEO4J_PASSWORD = '',
-  NEO4J_INSTANCE_ID = '',
-  NEO4J_INSTANCE_NAME = '',
+  NEO4J_USERNAME = "",
+  NEO4J_PASSWORD = "",
+  NEO4J_INSTANCE_ID = "",
+  NEO4J_INSTANCE_NAME = "",
   ENV,
   GA_TRACKING_ID,
 } = process.env;
@@ -14,7 +14,7 @@ export {
   NEO4J_INSTANCE_NAME,
   ENV,
   GA_TRACKING_ID,
-}
+};
 
 export const familyMapping: GroupType = {
   is_the_gorgons: "The Gorgons",

@@ -108,9 +108,11 @@ const SearchBar = ({ isMainNode, isShortestPathNode, placeholder }: SearchType) 
           onKeyDown={(e) => handleKeyDown(e)}
         />
       </div>
-      <ul className='mt-2 z-10 absolute'>
-        {suggestions?.map(suggestion => (
-          <li key={suggestion} className='ml-2 cursor-pointer text-gray-700 hover:bg-amber-200'>
+      <ul className='mt-2 z-50 absolute'>
+        {suggestions?.map((suggestion, index) => (
+          <li key={suggestion}
+              className={`ml-2 cursor-pointer text-gray-700 hover:bg-amber-200 p-1 pl-2 pr-2 ${index % 2 === 0 ? 'bg-gray-50': 'bg-indigo-50'}`}
+          >
             <div onClick={() => {
               setHideSuggestion(true);
               setInputValue(suggestion);

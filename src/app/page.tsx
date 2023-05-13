@@ -7,7 +7,7 @@ import CharacterCard from "@/components/CharacterCard";
 export default function Home() {
   return (
     <main>
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 p-6">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 p-4">
         <SearchBar isMainNode={true} placeholder='Find Greek Gods...' />
         <SearchBar isShortestPathNode={true} placeholder='Shortest Path...' />
         <CharacterCard isGod={true} />

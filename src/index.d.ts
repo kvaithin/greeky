@@ -21,6 +21,7 @@ interface GroupType {
   is_the_charities?: string | null,
   is_the_seasons?: string | null,
   is_the_pains?: string | null,
+  [key: string]: string | null | undefined,
 }
 
 type StateType = {
@@ -52,6 +53,7 @@ interface GodType extends GroupType {
   name?: string,
   alias?: string,
   gender?: string,
+  [key: string]: string | null | undefined,
 }
 
 type ToastType = {

@@ -11,14 +11,11 @@ export default function Home() {
         <SearchBar isMainNode={true} placeholder='Find Greek Gods...' />
         <SearchBar isShortestPathNode={true} placeholder='Shortest Path...' />
       </div>
-      <div className="flex justify-center items-stretch">
-        <div className="flex-grow">
-          <CharacterCard isGod={true}/>
-        </div>
-        <div className="flex-grow">
-          <CharacterCard isGod={false}/>
-        </div>
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-2">
+        <CharacterCard isGod={true} />
+        <CharacterCard isAdjacentGod={true} />
       </div>
+
       <div className='flex justify-around flex-col items-center max-w-7xl mx-auto'>
         <SearchDropDown />
         <GraphHandler />

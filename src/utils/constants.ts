@@ -16,7 +16,7 @@ export {
   GA_TRACKING_ID,
 }
 
-export const familyMapping: GodType = {
+export const familyMapping: GroupType = {
   is_the_gorgons: "The Gorgons",
   is_titan: "The Titans",
   is_cyclops: "The Cyclops",

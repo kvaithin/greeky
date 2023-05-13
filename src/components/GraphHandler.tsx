@@ -17,17 +17,17 @@ const GraphHandler = () => {
       && shortestPathData?.links?.length !== 0;
 
  return (
-  <div className='flex flex-wrap'>
-    <div>
+  <div className='flex flex-wrap gap-4'>
+    <div className='bg-white rounded-lg overflow-hidden shadow-md h-full'>
       {
         adjacentGod?.name
         && !shortestPathDataExists
           && <h1 className='text-red-500 text-center text-xl'>No Path Found Between Above Gods</h1>}
-      <h1 className='text-center text-xl'>Immediate Relations</h1>
+      <h1 className='px-4 py-2 bg-gray-800 text-white font-bold'>Immediate Relations</h1>
       <ForceDirectedGraph data={graphData} />
     </div>
-    <div>
-      {shortestPathDataExists && <h1 className='text-center text-xl'>Shortest Path</h1>}
+    <div className='bg-white rounded-lg overflow-hidden shadow-md h-full'>
+      {shortestPathDataExists && <h1 className='px-4 py-2 bg-gray-800 text-white font-bold'>Shortest Path</h1>}
       {shortestPathDataExists && <ForceDirectedGraph data={shortestPathData} />}
     </div>
   </div>

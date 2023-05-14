@@ -20,7 +20,11 @@ const GraphHandler = () => {
 
   return (
     <div className="flex min-[320px]:flex-wrap lg:flex-nowrap gap-4 p-4">
-      <div className="bg-white rounded-lg overflow-hidden shadow-md h-full sm:w-full lg:w-1/2">
+      <div
+        className={`bg-white rounded-lg overflow-hidden1 shadow-md h-full sm:w-full ${
+          shortestPathDataExists && "lg:w-1/2"
+        }`}
+      >
         {adjacentGod?.name && !shortestPathDataExists && (
           <h1 className="text-red-500 text-center text-xl">
             No Path Found Between Above Gods

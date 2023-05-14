@@ -16,6 +16,7 @@ const SearchBar = ({
   const adjacentGod = useStore((state) => state.adjacentGod);
   const addGod = useStore((state) => state.addGod);
   const relation = useStore((state) => state.relation);
+  const depth = useStore((state) => state.depth);
   const addAdjacentGod = useStore((state) => state.addAdjacentGod);
   const addGraphData = useStore((state) => state.addGraphData);
   const addShortestPathData = useStore((state) => state.addShortestPathData);
@@ -72,7 +73,9 @@ const SearchBar = ({
   const addGraphDetails = async () => {
     try {
       const response = await fetch(
-        `/api/greek/verbose_relation?name=${upperFirst(inputValue)}`
+        `/api/greek/verbose_relation?name=${upperFirst(
+          inputValue
+        )}&depth=${depth}`
       );
       const data = await response.json();
       addGraphData(data);

@@ -42,8 +42,13 @@ export const IMMEDIATE_RELATION_QUERY = (
   return query || defaultQuery;
 };
 
-export const VERBOSE_IMMEDIATE_RELATION_QUERY = (name: string | null) => {
-  return `MATCH (n {name: '${name}'})-[r]->(related_node) RETURN n, r, related_node`;
+export const VERBOSE_IMMEDIATE_RELATION_QUERY = (
+  name: string | null,
+  depth: string | null | undefined
+) => {
+  return `MATCH (n {name: '${name}'})-[r*1..${Number(
+    depth
+  )}]->(related_node) RETURN n, r, related_node`;
 };
 
 export const SHORTEST_PATH_QUERY = (

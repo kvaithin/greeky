@@ -7,8 +7,10 @@ import {
 
 export const GET = async (request: Request) => {
   try {
-    const { name } = extractParams(request);
-    const result = await session.run(VERBOSE_IMMEDIATE_RELATION_QUERY(name));
+    const { name, depth = "1" } = extractParams(request);
+    const result = await session.run(
+      VERBOSE_IMMEDIATE_RELATION_QUERY(name, depth)
+    );
     const mainNode = { id: result?.records[0].get("n")?.properties?.name };
     const otherNodes = result.records.map((record) => ({
       id: record?.get?.("related_node")?.properties?.name,

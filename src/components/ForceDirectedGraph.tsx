@@ -1,16 +1,22 @@
 // @ts-nocheck
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
+import useStore from "@/utils/store";
+import { shortestPathDataExists } from "@/utils/helpers";
 
 function ForceDirectedGraph({ data }: any) {
   const svgRef = useRef();
+  const depth = useStore((state) => state.depth);
+  const shortestPathData = useStore((state) => state.shortestPathData);
+  const showingShortGraph = shortestPathDataExists(shortestPathData);
+  const height = showingShortGraph ? 400 : 600;
+  const width = showingShortGraph ? 600 : 960;
+  const strength = depth == 1 || showingShortGraph ? -400 : -200;
 
   useEffect(() => {
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
-    svg.attr("width", 600).attr("height", 400);
-    const width = svg.node().getBoundingClientRect().width;
-    const height = svg.node().getBoundingClientRect().height;
+    svg.attr("width", width).attr("height", height);
 
     const simulation = d3
       .forceSimulation(data.nodes)
@@ -21,8 +27,11 @@ function ForceDirectedGraph({ data }: any) {
           .id((d) => d.id)
           .distance(50)
       )
-      .force("charge", d3.forceManyBody().strength(-400))
-      .force("center", d3.forceCenter(width / 2, height / 2));
+      .force("charge", d3.forceManyBody().strength(strength))
+      .force("center", d3.forceCenter(300, 200))
+      .force("collide", d3.forceCollide().radius(10))
+      .force("x", d3.forceX().x(300))
+      .force("y", d3.forceY().y(200));
 
     const links = svg
       .append("g")

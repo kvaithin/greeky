@@ -18,3 +18,8 @@ export const getNeo4jUrl = () => {
     return `neo4j+s://${NEO4J_INSTANCE_ID}.databases.neo4j.io`; // aura db
   return "bolt://localhost:7687"; // local docker instance
 };
+
+export const shortestPathDataExists = (shortestPathData: any) =>
+  Object.keys(shortestPathData)?.length !== 0 &&
+  shortestPathData?.nodes?.length !== 0 &&
+  shortestPathData?.links?.length !== 0;

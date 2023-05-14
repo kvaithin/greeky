@@ -8,6 +8,7 @@ const initialValues: StateType = {
   graphData: {},
   shortestPathData: {},
   relation: "",
+  depth: "1",
 };
 
 const useStore = create(
@@ -16,6 +17,7 @@ const useStore = create(
     addRelation: (relation: string) => set((state) => ({ relation })),
     addAdjacentGod: (adjacentGod: GodType) => set((state) => ({ adjacentGod })),
     addGraphData: (graphData: object) => set((state) => ({ graphData })),
+    addDepth: (depth: string) => set((state) => ({ depth })),
     addShortestPathData: (shortestPathData: object) =>
       set((state) => ({ shortestPathData })),
     removeGod: (name: string) => set((state) => ({ god: undefined })),

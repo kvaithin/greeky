@@ -31,6 +31,7 @@ type StateType = {
   graphData: object;
   shortestPathData: object;
   relation: string;
+  depth: string;
 };
 
 type SearchType = {
@@ -47,6 +48,7 @@ type ActionType = {
   addGraphData: (graphData: object) => void;
   addShortestPathData: (shortestPathData: object) => void;
   addRelation: (relation: string) => void;
+  addDepth: (depth: string) => void;
 };
 
 interface GodType extends GroupType {

@@ -21,7 +21,7 @@ const GraphHandler = () => {
   return (
     <div className="flex min-[320px]:flex-wrap lg:flex-nowrap gap-4 p-4">
       <div
-        className={`bg-white rounded-lg overflow-hidden1 shadow-md h-full sm:w-full ${
+        className={`bg-white rounded-lg shadow-md h-full sm:w-full ${
           shortestPathDataExists && "lg:w-1/2"
         }`}
       >

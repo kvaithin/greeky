@@ -21,7 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GoogleAnalytics GA_TRACKING_ID={GA_TRACKING_ID} />
-      <body className={comicNeue.className}>{children}</body>
+      <body suppressHydrationWarning={true} className={comicNeue.className}>
+        {children}
+      </body>
     </html>
   );
 }

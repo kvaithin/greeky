@@ -53,7 +53,7 @@ const SearchDropDown = () => {
         className="flex place-items-center p-2 border border-gray-300 text-gray-900 text-sm rounded-lg"
         onChange={onChange}
       >
-        <option value="" selected>
+        <option value="" defaultValue="">
           {upperFirst(relation.replace("_", " "))}
         </option>
         {relationNames.map((name: string) => {
